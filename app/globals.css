@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+
+:root {
+ --light-theme: #efefef;
+  --dark-theme: #1a1a1a;
+}
+
+@theme inline {
+  
+}
+
+body{
+  background-color: var(--light-theme);
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
