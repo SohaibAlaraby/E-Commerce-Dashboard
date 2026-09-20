@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import {mockProductsData} from './mockProducts';
+import { mockCustomersData } from './mockCustomers';
 
 export interface Order {
   id: string;
@@ -28,15 +29,18 @@ export const generateMockOrders = (count: number = 100): Order[] => {
     const products = mockProductsData.products;
     const randomProduct = faker.helpers.arrayElement(products);
 
+    const users = mockCustomersData.users;
+    const randomUser = faker.helpers.arrayElement(users);
+
     const statuses: Order['status'][] = ['Delivered', 'Pending', 'Shipped', 'Cancelled'];
     const paymentMethods: Order['paymentMethod'][] = ['Credit Card', 'PayPal', 'Cash on Delivery'];
     return {
       id: faker.string.uuid(),
       orderNumber: `ORD-${1000 + index}`,
       customer: {
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        avatar: faker.image.avatar(),
+        name: randomUser.firstName + ' ' + randomUser.lastName,
+        email: randomUser.email,
+        avatar: randomUser.image,
       },
       product: {
         id: randomProduct.id,
