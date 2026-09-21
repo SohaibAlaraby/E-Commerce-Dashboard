@@ -10,8 +10,8 @@ export default function Sidebar({isOpen, onToggle}:{
     const CloseIcon = sidebarData.closeIcon;
 
     return (
-        <aside className={`p-7 w-100 z-40 fixed top-0 left-0 h-screen bg-slate-100 flex flex-col gap-20 transition-transform duration-200 ease-in-out ${isOpen?'translate-x-0':'-translate-x-full'}`}>
-            <header className="flex items-center justify-between ">
+        <aside className={`w-100 z-40 fixed top-0 left-0 h-screen bg-slate-100 flex flex-col transition-transform duration-200 ease-in-out shadow-xl ${isOpen?'translate-x-0':'-translate-x-full'}`}>
+            <header className="flex h-30 items-center justify-around shadow">
                 <div className="flex items-center gap-4">
                     <Image 
                     src={sidebarData.appIcon} 
@@ -26,14 +26,14 @@ export default function Sidebar({isOpen, onToggle}:{
                 <button onClick={onToggle} className="hover:bg-gray-300 p-1 rounded cursor-pointer"><CloseIcon className="text-2xl"/></button>
             </header>
             <nav>
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-4 p-7">
                     {sidebarData.items.map((item) => {
                         const Icon = item.icon;
                         return(
                             <li key={item.name}>
                                 <NavLink 
                                 href={item.href}  
-                                className="flex items-center gap-4 text-xl font-medium capitalize rounded-2xl px-6 py-3">
+                                className="flex items-center gap-4 text-xl font-medium capitalize rounded-2xl px-6 py-3 hover:bg-gray-200">
                                     <Icon className="text-2xl"/>
                                     {item.name}
                                 </NavLink>
