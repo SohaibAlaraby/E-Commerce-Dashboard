@@ -2,20 +2,24 @@
 
 
 :root {
- --light-theme: #efefef;
+  --light-theme: #efefef;
   --dark-theme: #1a1a1a;
+  --primary-blue: #003fc6;
+  --primary-light-blue: #003fc615;
 }
 
-@theme inline {
+/* @theme inline {
   
-}
+} */
 
 body{
   background-color: var(--light-theme);
 }
 
 *{
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+}
+.active{
+  color: var(--primary-blue);
+  background-color: var(--primary-light-blue);
 }
