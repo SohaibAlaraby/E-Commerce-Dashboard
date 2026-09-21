@@ -17,13 +17,9 @@ body{
 }
 
 *{
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
 .active{
   color: var(--primary-blue);
   background-color: var(--primary-light-blue);
-  border-left:var(--primary-blue) solid 4px;
-  padding-left: 8px;
 }
