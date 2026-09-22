@@ -1,7 +1,8 @@
 'use client'
 import { useState, ReactNode } from "react";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { CONTENT_CONFIG } from "@/configs/contentConfig";
+import { CONTENT_CONFIG } from "@/utiles/configs/contentConfig";
+import Header from "../header/Header";
 
 export default function DashboardShell({children}:{children:ReactNode}){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -14,9 +15,9 @@ export default function DashboardShell({children}:{children:ReactNode}){
     return(
         <div className="flex">
             <Sidebar isOpen={isSidebarOpen} onToggle={toggleIsSidbarOpen} />
-            <div className={`${CONTENT_CONFIG.expandAnimation} ${isSidebarOpen? CONTENT_CONFIG.marginLeftOpened:CONTENT_CONFIG.marginLeftCollapsed}`}>
-                <header>here is nav</header>
-                <main>
+            <div className={`w-full `}>
+                <Header isOpen={isSidebarOpen} onToggle={toggleIsSidbarOpen}/>
+                <main className={`bg-amber-600 ${CONTENT_CONFIG.expandAnimation} ${isSidebarOpen? CONTENT_CONFIG.marginLeftOpened:CONTENT_CONFIG.marginLeftCollapsed}`}>
                     {children}
                 </main>
             </div>

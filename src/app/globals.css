@@ -8,9 +8,9 @@
   --primary-light-blue: #003fc615;
 }
 
-/* @theme inline {
-  
-} */
+@theme inline {
+  --color-primary-blue: var(--primary-blue);
+}
 
 body{
   background-color: var(--light-theme);

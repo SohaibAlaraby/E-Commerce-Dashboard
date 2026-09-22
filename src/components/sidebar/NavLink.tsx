@@ -7,15 +7,15 @@ interface NavLinkProps {
   href: LinkProps["href"]; 
   children: ReactNode;      
   className?: string;
-  style?:CSSProperties;       
+  onClick?: ()=>void;     
 }
 
-export default function NavLink({ href, children, className="",style}:NavLinkProps) {
+export default function NavLink({ href, children, className="",onClick=()=>{}}:NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
   return (
-    <Link href={href} className={`${isActive && 'active'} ${className}`} style={style}>
+    <Link href={href} className={`${isActive && 'active'} ${className}`} onClick={onClick}>
       {children}
     </Link>
   );
