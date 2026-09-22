@@ -1,27 +1,8 @@
 import { faker } from '@faker-js/faker';
 import {mockProductsData} from './mockProducts';
 import { mockCustomersData } from './mockCustomers';
-
-export interface Order {
-  id: string;
-  orderNumber: string;
-  customer: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-  product: {
-    id:number;
-    name: string;
-    category: string;
-    thumbnail: string;
-  };
-  amount: number;
-  paymentMethod: 'Credit Card' | 'PayPal' | 'Cash on Delivery';
-  status: 'Delivered' | 'Pending' | 'Shipped' | 'Cancelled';
-  date: string;
-  itemsCount: number;
-}
+import {type Order } from '@/utiles/types/order.type';
+import { type OrderStatus } from '@/utiles/types/orderStatus.type';
 
 export const generateMockOrders = (count: number = 100): Order[] => {
   return Array.from({ length: count }, (_, index) => {

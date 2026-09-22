@@ -5,8 +5,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { MdPeopleAlt } from "react-icons/md";
 import { SiGoogleanalytics } from "react-icons/si";
 import { IoStorefrontSharp } from "react-icons/io5";
-import { FiSidebar } from "react-icons/fi";
-
+import { GoSidebarExpand } from "react-icons/go";
 export interface NavItem {
   name: string;
   icon: IconType;
@@ -22,7 +21,7 @@ export interface SidebarData {
 export const sidebarData:SidebarData = {
     title: "SalesVista",
     appIcon:"/logo.png",
-    closeIcon:FiSidebar,
+    closeIcon:GoSidebarExpand,
     items:[
         {
             name:"dashboard",

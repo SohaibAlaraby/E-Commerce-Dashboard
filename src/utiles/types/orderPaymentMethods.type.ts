@@ -1,0 +1,1 @@
+export type OrderPaymentMethods = 'Credit Card' | 'PayPal' | 'Cash on Delivery';
