@@ -38,7 +38,7 @@ export interface Product {
   availabilityStatus: string;
   reviews: Review[];
   returnPolicy: string;
-  minimumOrderQuantity: number;
+  minimumOrderQuantity: number;//this field in not important
   meta: ProductMeta;
   images: string[];
   thumbnail: string;
