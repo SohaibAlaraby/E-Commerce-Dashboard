@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.0",
     "@tanstack/react-table": "^9.3.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.3.0",
+    "country-list": "^2.4.1",
+    "country-state-city": "^3.2.1",
     "lucide-react": "^1.47.0",
     "next": "16.3.5",
     "radix-ui": "^1.6.7",
@@ -26,12 +30,14 @@
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
     "@tailwindcss/postcss": "^4",
+    "@types/country-list": "^2.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
