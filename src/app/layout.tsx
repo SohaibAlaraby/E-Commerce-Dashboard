@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: {
       suppressHydrationWarning
     >
       <body 
-      className="min-h-full flex flex-col"
+      className="min-h-dvh" //flex flex-col
       suppressHydrationWarning
       >{children}</body>
     </html>

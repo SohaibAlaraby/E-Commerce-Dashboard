@@ -82,10 +82,10 @@ export function DataTable<TData extends RowData>({
             onChange={(event) =>
                 table.getColumn(filter)?.setFilterValue(event.target.value)
             }
-            className="max-w-sm rounded-r-none "
+            className="max-w-sm rounded-r-none bg-white "
             />
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline" className={'rounded-l-none cursor-pointer'}>Choose Filter</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" className={'rounded-l-none cursor-pointer bg-blue-800 text-white'}>Choose Filter</Button>} />
               <DropdownMenuContent className="w-32">
                 <DropdownMenuGroup>
                     <DropdownMenuLabel>Filters</DropdownMenuLabel>
@@ -99,7 +99,7 @@ export function DataTable<TData extends RowData>({
               </DropdownMenu>
         </div>
         <div className="overflow-hidden rounded-md border">
-        <Table>
+        <Table className="bg-white">
             <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>

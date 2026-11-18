@@ -9,7 +9,7 @@ export default function Header({isOpen, onToggle}:{
     onToggle: ()=>void;
 }) {
     return(
-        <header className="flex flex-col-reverse gap-3 justify-center h-25 items-center shadow min-[370px]:flex-row-reverse min-[370px]:justify-between">
+        <header className="bg-slate-100 flex flex-col-reverse gap-3 justify-center h-25 items-center shadow min-[370px]:flex-row-reverse min-[370px]:justify-between">
             <nav className="flex gap-2 self-end min-[370px]:self-center pr-3">
                 <Link href={'/login'} className="text-sm px-3 py-1.5 font-bold bg-gray-200 capitalize rounded cursor-pointer hover:bg-gray-700 hover:text-gray-100 hover:scale-105">login</Link>
                 <Link href={'/signup'} className="text-sm px-3 py-1.5 font-bold bg-primary-blue text-amber-100 capitalize rounded cursor-pointer hover:bg-gray-700 hover:text-gray-100 hover:scale-105">Sign Up</Link>
