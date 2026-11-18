@@ -26,7 +26,7 @@ export default function Sidebar({isOpen, onToggle}:{
                             <li key={item.name}>
                                 <NavLink 
                                 href={item.href} 
-                                onClick={onToggle} 
+                                // onClick={onToggle} 
                                 className={`flex items-center gap-4 ${SIDEBAR_CONFIG.textSize} font-medium capitalize rounded-2xl px-6 py-3 hover:bg-gray-200`}>
                                     <Icon/>
                                     {item.name}

@@ -15,9 +15,9 @@ export default function DashboardShell({children}:{children:ReactNode}){
     return(
         <div className="flex">
             <Sidebar isOpen={isSidebarOpen} onToggle={toggleIsSidbarOpen} />
-            <div className={`w-full `}>
+            <div className={`w-full`}>
                 <Header isOpen={isSidebarOpen} onToggle={toggleIsSidbarOpen}/>
-                <main className={`bg-gray-100 ${CONTENT_CONFIG.expandAnimation} ${isSidebarOpen? CONTENT_CONFIG.marginLeftOpened:CONTENT_CONFIG.marginLeftCollapsed}`}>
+                <main className={`bg-slate-100 h-dvh ${CONTENT_CONFIG.expandAnimation} ${isSidebarOpen? CONTENT_CONFIG.marginLeftOpened:CONTENT_CONFIG.marginLeftCollapsed} `}>
                     {children}
                 </main>
             </div>
