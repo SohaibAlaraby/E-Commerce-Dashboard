@@ -8,7 +8,7 @@ export interface Order {
   customer: {
     name: string;
     email: string;
-    avatar: string;
+    avatar: string | undefined;
   };
   product: {
     id:number;
@@ -19,6 +19,6 @@ export interface Order {
   amount: number;
   paymentMethod: OrderPaymentMethods;
   status: OrderStatus;
-  date: string;
+  createdAt: string;
   itemsCount: number;
 }

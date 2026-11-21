@@ -32,7 +32,7 @@ export const generateMockOrders = (count: number = 100): Order[] => {
       amount: randomProduct.price,
       paymentMethod: faker.helpers.arrayElement(paymentMethods),
       status: faker.helpers.arrayElement(statuses),
-      date: faker.date.recent({ days: 60 }).toISOString().split('T')[0],
+      createdAt: faker.date.recent({ days: 60 }).toISOString().split('T')[0],
       itemsCount: faker.number.int({ min: 1, max: 6 }),
     };
   });
