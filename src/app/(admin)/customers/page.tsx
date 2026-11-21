@@ -3,6 +3,8 @@ import Link from "next/link";
 import { columns, CustomerEntry } from "@/components/customers/table/columns";
 import { DataTable } from "@/components/customers/table/data-table"
 import { ExportDropdownMenuDestructive } from "@/components/customers/export-dropdown-menu";
+import KpiCards from "@/components/customers/kpi-cards/kpi-cards";
+
 
 //data
 import { Customer } from "@/utils/types/customer.type";
@@ -56,8 +58,8 @@ export default async function customersPage(){
     // const data = await getData();
     const data = await prepareCustomersData();
     return(
-        <div className="container mx-auto p-10">
-            <header className="flex justify-between flex-wrap gap-3 mb-10">
+        <div className="flex flex-col gap-10 container mx-auto p-10">
+            <header className="flex justify-between flex-wrap gap-3">
                 <h2 className="text-3xl font-bold">Customers</h2>
                 <div className="flex flex-row-reverse gap-1">
                     <Link href='/customers/add-customer'>
@@ -69,6 +71,7 @@ export default async function customersPage(){
                     <ExportDropdownMenuDestructive/>
                 </div>
             </header>
+            <KpiCards/>
             <DataTable columns={columns} data={data} />
         </div>
     );
