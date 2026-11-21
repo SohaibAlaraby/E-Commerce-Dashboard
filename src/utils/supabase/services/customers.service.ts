@@ -533,3 +533,118 @@ async function clearDefaultAddress(customerId: string): Promise<void> {
 export function getMainAddress(customer: Customer): CustomerAddress | undefined {
   return customer.addresses.find((a) => a.isDefault) ?? customer.addresses[0];
 }
+
+/*
+  Customers KPIs
+*/
+
+// بداية اليوم التالي (حد أعلى حصري) علشان نشمل اليوم الحالي بالكامل
+function startOfNextDay(d: Date) {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1));
+}
+
+function getMonthRanges(now = new Date()) {
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth();
+  const day = now.getUTCDate();
+
+  // الشهر الحالي: من أول الشهر لحد دلوقتي (شامل النهارده)
+  const thisMonthStart = new Date(Date.UTC(y, m, 1));
+  const thisMonthEnd = startOfNextDay(now);
+
+  // الشهر الماضي: من أول الشهر الماضي لنفس اليوم (لو الشهر الماضي أقصر نستخدم آخر يوم فيه)
+  const lastMonthStart = new Date(Date.UTC(y, m - 1, 1));
+  const daysInLastMonth = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const lastMonthSameDay = new Date(Date.UTC(y, m - 1, Math.min(day, daysInLastMonth)));
+  const lastMonthEnd = startOfNextDay(lastMonthSameDay);
+
+  return { thisMonthStart, thisMonthEnd, lastMonthStart, lastMonthEnd };
+}
+// حساب عدد العملاء الجدد خلال فتره زمنية
+async function countCustomersBetween(from: Date, to: Date): Promise<number> {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("customers")
+    .select("id", { count: "exact", head: true })
+    .gte("created_at", from.toISOString())
+    .lt("created_at", to.toISOString());
+
+  if (error) throw new Error(`Failed to count customers: ${error.message}`);
+  return count ?? 0;
+}
+
+// 1) العملاء الجدد من أول الشهر الحالي لحد النهارده
+export async function getNewCustomersThisMonth(): Promise<number> {
+  const { thisMonthStart, thisMonthEnd } = getMonthRanges();
+  return countCustomersBetween(thisMonthStart, thisMonthEnd);
+}
+
+// 2) العملاء الجدد من أول الشهر الماضي لحد نفس اليوم في الشهر الماضي
+export async function getNewCustomersLastMonth(): Promise<number> {
+  const { lastMonthStart, lastMonthEnd } = getMonthRanges();
+  return countCustomersBetween(lastMonthStart, lastMonthEnd);
+}
+
+
+import { mockOrdersData } from "@/mock/Orders";
+//must be edited after building Orders Database
+
+// 3) Active customers: عملوا أوردر واحد على الأقل في آخر 6 شهور (mock orders)
+export async function getActiveCustomersCountWithnLastSixMonths(): Promise<number> {
+  const now = new Date();
+  const sixMonthsAgo = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 6, now.getUTCDate())
+  );
+  const orders = mockOrdersData; //must be edited
+
+  const active = new Set<string>();
+  for (const o of orders) {
+    if (new Date(o.createdAt) >= sixMonthsAgo) active.add(o.customer.email);
+  }
+  return active.size;
+}
+
+
+//edit this when create orders database table
+export async function getCustomersMadeOneOrder(): Promise<number> {
+  const orders = mockOrdersData;
+
+  const active = new Set<string>();
+  for (const o of orders) {
+    active.add(o.customer.email);
+  }
+  return active.size;
+}
+
+// 4) Average LTV = إجمالي إيرادات كل الأوردرات ÷ عدد العملاء (mock orders)
+export async function getAverageLTV(): Promise<number> {
+  const customersWhoMadeOrderCount = await getCustomersMadeOneOrder();
+  if (customersWhoMadeOrderCount === 0) return 0;
+
+  const orders = mockOrdersData;
+  const totalRevenue = orders.reduce((sum, o) => sum + o.amount, 0);
+
+  return Math.round((totalRevenue / customersWhoMadeOrderCount) * 100) / 100;
+}
+
+export type CustomerKpis = {
+  totalCustomersCount:number;
+  newCustomersThisMonth: number;
+  newCustomersLastMonth: number;
+  activeCustomers: number;
+  averageLTV: number;
+};
+
+// كل الأرقام مرة واحدة (مناسبة لصفحة الـ dashboard)
+export async function getCustomersKpis(): Promise<CustomerKpis> {
+  const [totalCustomersCount,newCustomersThisMonth, newCustomersLastMonth, activeCustomers, averageLTV] =
+    await Promise.all([
+      getCustomersCount(),
+      getNewCustomersThisMonth(),
+      getNewCustomersLastMonth(),
+      getActiveCustomersCountWithnLastSixMonths(),
+      getAverageLTV(),
+    ]);
+
+  return { totalCustomersCount, newCustomersThisMonth, newCustomersLastMonth, activeCustomers, averageLTV };
+}
